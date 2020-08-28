@@ -1,4 +1,3 @@
-// POST /oauth/authenticate - Login
 // POST /users - Create
 // POST /users/:userId/time-tracks - Add new track entry for the user
 // PUT /users/:userId - Update user information
