@@ -15,3 +15,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 .clearfix:after { clear: both; }
 strong { font-weight: bold; }
 em { font-style: italic; }
+
+body {
+	font-size: 16px;
+}

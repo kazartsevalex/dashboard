@@ -2,6 +2,11 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import Page from '../elements/Page';
+import H1 from '../elements/H1';
+import AuthBlock from '../elements/AuthBlock';
+import AuthForm from '../components/AuthForm/AuthForm';
+
 const Login = () => {
   const user = useSelector(state => state.auth.user);
   const isAuthenticated = user !== null;
@@ -9,7 +14,12 @@ const Login = () => {
   if (isAuthenticated) return <Redirect to="/dashboard" />
 
   return (
-    <div>Login</div>
+    <Page>
+      <AuthBlock>
+        <H1>Login</H1>
+        <AuthForm type="login" />
+      </AuthBlock>
+    </Page>
   );
 }
 
