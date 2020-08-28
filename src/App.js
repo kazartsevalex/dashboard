@@ -26,7 +26,7 @@ function App() {
   const isAuthenticated = user !== null;
   useEffect(() => {
     dispatch(fetchUser());
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   return (
     <>

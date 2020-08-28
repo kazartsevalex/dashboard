@@ -13,17 +13,44 @@ const getCurrentUser = async () => {
   return user;
 }
 
-const login = async () => {
+const login = async (userData) => {
   await delay(300);
+
+  const users = localStorage.getObject('users');
+
+  if (!(userData.email in users) || userData.password !== users[userData.email]) {
+    return { error: `User with email: ${userData.email} not found, or wrong password!` };
+  }
+  localStorage.setItem('currentUser', userData.email);
+
+  return userData;
 }
 
-const apiCall = async (url) => {
-  switch (url) {
+const register = async (userData) => {
+  await delay(300);
+
+  const users = localStorage.getObject('users') || {};
+
+  if (userData.email in users) {
+    return { error: `Email: ${userData.email} is already in use!` };
+  }
+  users[userData.email] = userData.password;
+  localStorage.setObject('users', users);
+  localStorage.setItem('currentUser', userData.email);
+
+  return userData;
+}
+
+const apiCall = async (opts) => {
+  switch (opts.url) {
     case apiCallUrls.CURRENT_USER:
       return await getCurrentUser();
 
     case apiCallUrls.OAUTH_AUTHENTICATE:
-      return await login();
+      return await login(opts.data);
+
+    case apiCallUrls.REGISTER:
+      return await register(opts.data);
 
     default:
       return null;

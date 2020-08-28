@@ -2,7 +2,6 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
-import * as apiCallUrls from '../../shared/apiCallUrls';
 import FormError from '../../elements/FormError';
 import InputGroup from '../../elements/InputGroup';
 import Input from '../../elements/Input';
@@ -13,12 +12,11 @@ const Form = styled.form`
 `;
 
 const AuthForm = (props) => {
-  const url = props.type === 'login' ? apiCallUrls.OAUTH_AUTHENTICATE : apiCallUrls.REGISTER;
   const submitText = props.type === 'login' ? 'Login' : 'Register';
 
-  const { register, handleSubmit, watch, errors } = useForm();
+  const { register, handleSubmit, errors } = useForm();
   const onSubmit = data => {
-    console.log(data, url);
+    props.onSubmit(data);
   };
 
   const emailOptions = {
@@ -43,7 +41,7 @@ const AuthForm = (props) => {
   );
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)} >
       <InputGroup>
         <label>Email</label>
         <Input
