@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 import NavigationItem from './NavigationItem';
+import NavigationItemLi from '../../../elements/NavigationItemLi';
 
-const NavigationItems = styled.ul`
+const NavigationItemsUl = styled.ul`
   margin: 0;
   padding: 0;
   list-style: none;
@@ -17,17 +19,25 @@ const NavigationItems = styled.ul`
   }
 `;
 
-const navigationItems = (props) => (
-  <NavigationItems>
-    <NavigationItem flexAlign="left" link="/dashboard" exact>Dashboard</NavigationItem>
-    { props.isAuthenticated
-      ? <NavigationItem link="/logout">Log Out</NavigationItem>
-      : <>
-        <NavigationItem link="/login">Login</NavigationItem>
-        <NavigationItem link="/register">Register</NavigationItem>
-      </>
-    }
-  </NavigationItems>
-);
+const NavigationItems = () => {
+  const { user } = useSelector(state => state.auth);
+  const isAuthenticated = user !== null;
 
-export default navigationItems;
+  return (
+    <NavigationItemsUl>
+      <NavigationItem flexAlign="left" link="/dashboard" exact>Dashboard</NavigationItem>
+      { isAuthenticated
+        ? <>
+          <NavigationItemLi>{user}</NavigationItemLi>
+          <NavigationItem link="/logout">Log Out</NavigationItem>
+        </>
+        : <>
+          <NavigationItem link="/login">Login</NavigationItem>
+          <NavigationItem link="/register">Register</NavigationItem>
+        </>
+      }
+    </NavigationItemsUl>
+  );
+};
+
+export default NavigationItems;

@@ -32,7 +32,7 @@ const sideDrawer = (props) => {
       <Backdrop show={props.open} clicked={props.closed} />
       <Div onClick={props.closed} open={props.open}>
         <nav>
-          <NavigationItems isAuthenticated={props.isAuth} />
+          <NavigationItems />
         </nav>
       </Div>
     </>

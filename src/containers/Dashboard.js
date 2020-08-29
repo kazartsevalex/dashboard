@@ -7,7 +7,7 @@ import Page from '../elements/Page';
 import H1 from '../elements/H1';
 
 const Dashboard = () => {
-  const { user, error, loading } = useSelector(state => state.auth);
+  const { user } = useSelector(state => state.auth);
   const isAuthenticated = user !== null;
 
   if (!isAuthenticated) return <Redirect to="/login" />
@@ -15,9 +15,6 @@ const Dashboard = () => {
   return (
     <Page>
       <H1>Dashboard</H1>
-      user: {user}<br/>
-      error: {error}<br/>
-      loading: {loading}<br/>
     </Page>
   );
 }

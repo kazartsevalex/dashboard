@@ -24,7 +24,6 @@ function App() {
   }
 
   const user = useSelector(state => state.auth.user);
-  const isAuthenticated = user !== null;
   useEffect(() => {
     dispatch(fetchUser());
   }, [dispatch, user]);
@@ -33,12 +32,10 @@ function App() {
     <>
       <Toolbar
         drawerToggleClicked={sideDrawerToggleHandler}
-        isAuth={isAuthenticated}
       />
       <SideDrawer
         open={showSideDrawer}
         closed={sideDrawerClosedHandler}
-        isAuth={isAuthenticated}
       />
       <Route exact path="/" component={Home} />
       <Route exact path="/dashboard" component={Dashboard} />
