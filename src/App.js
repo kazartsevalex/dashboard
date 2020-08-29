@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Toolbar from './components/Navigation/Toolbar/Toolbar';
 import SideDrawer from './components/Navigation/SideDrawer/SideDrawer';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Home from './containers/Home';
 import Dashboard from './containers/Dashboard';
 import Login from './containers/Login';
@@ -37,8 +38,8 @@ function App() {
         open={showSideDrawer}
         closed={sideDrawerClosedHandler}
       />
-      <Route exact path="/" component={Home} />
-      <Route exact path="/dashboard" component={Dashboard} />
+      <PrivateRoute exact path="/" component={Home} />
+      <PrivateRoute exact path="/dashboard" component={Dashboard} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
       <Route exact path="/logout" component={Logout} />

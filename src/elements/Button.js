@@ -15,14 +15,19 @@ const Button = styled.button`
   align-items: center;
   justify-content: center;
   background-color: #fff;
+  border: 2px solid #999;
+  color: #999;
   transition: all 0.25s;
+  &:hover {
+    color: #fff;
+    background-color: #999;
+  }
   ${props => {
     if (props.type === 'submit') {
       return css`
         border: 2px solid green;
         color: green;
         &:hover {
-          color: #fff;
           background-color: green;
         }
       `;
@@ -32,7 +37,6 @@ const Button = styled.button`
         border: 2px solid red;
         color: red;
         &:hover {
-          color: #fff;
           background-color: red;
         }
       `;

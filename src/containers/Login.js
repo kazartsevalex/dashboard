@@ -6,7 +6,7 @@ import Page from '../elements/Page';
 import H1 from '../elements/H1';
 import AuthBlock from '../elements/AuthBlock';
 import FormError from '../elements/FormError';
-import AuthForm from '../components/AuthForm/AuthForm';
+import AuthForm from '../components/Forms/AuthForm';
 import { loginUser } from '../store/actions/index';
 
 const Login = () => {

@@ -3,13 +3,13 @@ import apiCall from '../../shared/apiCall';
 import * as apiCallUrls from '../../shared/apiCallUrls';
 
 export const fetchUser = () => async dispatch => {
-  const user = await apiCall({
+  const response = await apiCall({
     url: apiCallUrls.CURRENT_USER
   });
 
   dispatch({
     type: actionTypes.FETCH_USER,
-    user: user
+    user: response.data
   });
 };
 

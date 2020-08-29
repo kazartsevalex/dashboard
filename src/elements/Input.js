@@ -12,7 +12,8 @@ const Input = styled.input`
   box-sizing: border-box;
   background-color: #fff;
   outline: none;
-  transition: box-shadow, 0.25s;
+  box-shadow: inset 0 0 5px #666;
+  transition: box-shadow 0.25s;
   &:focus {
     box-shadow: 0 0 5px #666;
   }
