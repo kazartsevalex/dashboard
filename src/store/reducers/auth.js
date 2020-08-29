@@ -30,6 +30,15 @@ const reducer = (state = initialState, action) => {
     case actionTypes.LOGIN_USER_SUCCESS:
       return updateObject(state, { loading: false, error: null, user: action.user });
 
+    case actionTypes.LOGOUT_USER_START:
+      return updateObject(state, { loading: true, error: null });
+
+    case actionTypes.LOGOUT_USER_FAIL:
+      return updateObject(state, { loading: false, error: action.error, user: null });
+
+    case actionTypes.LOGOUT_USER_SUCCESS:
+      return updateObject(state, { loading: false, error: null, user: null });
+
     default:
       return state;
   }

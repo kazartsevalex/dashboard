@@ -7,6 +7,7 @@ import SideDrawer from './components/Navigation/SideDrawer/SideDrawer';
 import Home from './containers/Home';
 import Dashboard from './containers/Dashboard';
 import Login from './containers/Login';
+import Logout from './containers/Logout';
 import Register from './containers/Register';
 import { fetchUser } from './store/actions/index';
 
@@ -43,6 +44,7 @@ function App() {
       <Route exact path="/dashboard" component={Dashboard} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
+      <Route exact path="/logout" component={Logout} />
     </>
   );
 }

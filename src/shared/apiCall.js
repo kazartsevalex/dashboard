@@ -41,6 +41,14 @@ const register = async (userData) => {
   return userData;
 }
 
+const logout = async () => {
+  await delay(300);
+
+  localStorage.removeItem('currentUser');
+
+  return true;
+}
+
 const apiCall = async (opts) => {
   switch (opts.url) {
     case apiCallUrls.CURRENT_USER:
@@ -51,6 +59,9 @@ const apiCall = async (opts) => {
 
     case apiCallUrls.REGISTER:
       return await register(opts.data);
+
+    case apiCallUrls.LOGOUT:
+      return await logout();
 
     default:
       return null;

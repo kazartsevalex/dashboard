@@ -82,3 +82,36 @@ export const loginUser = (userData) => async dispatch => {
     dispatch(loginUserSuccess(response.data));
   }
 };
+
+export const logoutUserSuccess = () => {
+  return {
+    type: actionTypes.LOGOUT_USER_SUCCESS
+  };
+};
+
+export const logoutUserFail = (error) => {
+  return {
+    type: actionTypes.LOGOUT_USER_FAIL,
+    error: error
+  };
+};
+
+export const logoutUserStart = () => {
+  return {
+    type: actionTypes.LOGOUT_USER_START
+  };
+};
+
+export const logoutUser = () => async dispatch => {
+  dispatch(logoutUserStart());
+
+  const response = await apiCall({
+    url: apiCallUrls.LOGOUT
+  });
+
+  if (response.error) {
+    dispatch(logoutUserFail(response.error));
+  } else {
+    dispatch(logoutUserSuccess());
+  }
+};
