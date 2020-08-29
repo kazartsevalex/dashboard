@@ -1,11 +1,11 @@
-// POST /users - Create
 // POST /users/:userId/time-tracks - Add new track entry for the user
 // PUT /users/:userId - Update user information
-// GET /users - return list of all users
 // GET /time-tracks
 import * as apiCallUrls from './apiCallUrls';
 import { delay } from './utils';
 import { employees } from '../data/users';
+
+const EMPLOYEES_PER_PAGE = 24;
 
 const getCurrentUser = async () => {
   await delay(300);
@@ -54,14 +54,20 @@ const logout = async () => {
   return true;
 }
 
-const getUsers = async () => {
+const getUsers = async ({ page }) => {
   await delay(300);
+
+  const createdEmployees = localStorage.getObject('createdEmployees') || [];
+  const allEmployees = [...createdEmployees, ...employees];
+  const start = page * EMPLOYEES_PER_PAGE;
+  const end = start + EMPLOYEES_PER_PAGE;
+  const paginatedEmployees = allEmployees.slice(start, end);
 
   return {
     data: {
-      employees,
       employeesData: localStorage.getObject('employeesData'),
-      createdEmployees: localStorage.getObject('createdEmployees')
+      totalEmployees: allEmployees.length,
+      paginatedEmployees
     }
   };
 }
@@ -75,9 +81,13 @@ const createUser = async (userData) => {
   const createdEmployees = localStorage.getObject('createdEmployees') || [];
   createdEmployees.push(newEmployee);
   localStorage.setObject('createdEmployees', createdEmployees);
+  const allEmployees = [...createdEmployees, ...employees];
 
   return {
-    data: { newEmployee, createdEmployees }
+    data: {
+      newEmployee,
+      totalEmployees: allEmployees.length
+    }
   };
 }
 
@@ -96,7 +106,7 @@ const apiCall = async (opts) => {
       return await logout();
 
     case apiCallUrls.GET_USERS:
-      return await getUsers();
+      return await getUsers(opts.data);
 
     case apiCallUrls.POST_USERS:
       return await createUser(opts.data);

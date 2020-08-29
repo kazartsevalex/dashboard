@@ -2,9 +2,10 @@ import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/utils';
 
 const initialState = {
-  employees: null,
+  paginatedEmployees: [],
   employeesData: null,
   newEmployee: null,
+  totalEmployees: 0,
   error: null,
   loading: false
 };
@@ -18,7 +19,7 @@ const reducer = (state = initialState, action) => {
       return updateObject(state, {
         loading: false,
         error: action.error,
-        employees: null,
+        paginatedEmployees: [],
         employeesData: null
       });
 
@@ -26,8 +27,8 @@ const reducer = (state = initialState, action) => {
       return updateObject(state, {
         loading: false,
         error: null,
-        employees: action.employees,
-        createdEmployees: action.createdEmployees,
+        totalEmployees: action.totalEmployees,
+        paginatedEmployees: action.paginatedEmployees,
         employeesData: action.employeesData
       });
 
@@ -46,7 +47,7 @@ const reducer = (state = initialState, action) => {
         loading: false,
         error: null,
         newEmployee: action.newEmployee,
-        createdEmployees: action.createdEmployees
+        totalEmployees: action.totalEmployees
       });
 
     default:

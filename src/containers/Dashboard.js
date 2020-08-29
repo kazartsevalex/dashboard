@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
@@ -10,14 +10,27 @@ import CreateEmployee from './Dashboard/CreateEmployee';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
-  const { employees, createdEmployees, employeesData, newEmployee } = useSelector(state => state.employees);
+  const { totalEmployees, paginatedEmployees, employeesData } = useSelector(state => state.employees);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
-    dispatch(getEmployees());
-  }, [dispatch]);
+    console.log('getting employees')
+    dispatch(getEmployees(page));
+  }, [dispatch, page]);
 
-  const totalEmployees = employees ? employees.length : 0;
-  const totalCreatedEmployees = createdEmployees ? createdEmployees.length : 0;
+  const drawEmployees = () => {
+    const emps = [];
+
+    paginatedEmployees.forEach(employee => {
+      emps.push(
+        <div key={employee.id}>
+          {employee.firstname} {employee.lastname}
+        </div>
+      );
+    })
+
+    return emps;
+  }
 
   return (
     <Page>
@@ -25,7 +38,6 @@ const Dashboard = () => {
         <section>
           <H1>General summary</H1>
           total employees: {totalEmployees}<br />
-          created employees: {totalCreatedEmployees}<br />
           employeesData: {employeesData || '---'}
           <CreateEmployee />
         </section>
@@ -33,7 +45,7 @@ const Dashboard = () => {
           <H1>Table filters</H1>
         </section>
         <section>
-          <H1>Table</H1>
+          {drawEmployees()}
         </section>
       </Main>
     </Page>

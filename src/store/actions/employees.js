@@ -2,11 +2,11 @@ import * as actionTypes from './actionTypes';
 import apiCall from '../../shared/apiCall';
 import * as apiCallUrls from '../../shared/apiCallUrls';
 
-export const getEmployeesSuccess = ({ employees, createdEmployees, employeesData }) => {
+export const getEmployeesSuccess = ({ totalEmployees, paginatedEmployees, employeesData }) => {
   return {
     type: actionTypes.GET_EMPLOYEES_SUCCESS,
-    employees,
-    createdEmployees,
+    totalEmployees,
+    paginatedEmployees,
     employeesData
   };
 };
@@ -24,11 +24,14 @@ export const getEmployeesStart = () => {
   };
 };
 
-export const getEmployees = () => async dispatch => {
+export const getEmployees = (page) => async dispatch => {
   dispatch(getEmployeesStart());
 
   const response = await apiCall({
-    url: apiCallUrls.GET_USERS
+    url: apiCallUrls.GET_USERS,
+    data: {
+      page
+    }
   });
 
   if (response.error) {
@@ -38,11 +41,11 @@ export const getEmployees = () => async dispatch => {
   }
 };
 
-export const createEmployeeSuccess = ({ newEmployee, createdEmployees }) => {
+export const createEmployeeSuccess = ({ newEmployee, totalEmployees }) => {
   return {
     type: actionTypes.CREATE_EMPLOYEE_SUCCESS,
     newEmployee,
-    createdEmployees
+    totalEmployees
   };
 };
 
