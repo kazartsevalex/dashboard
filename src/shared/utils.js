@@ -12,6 +12,10 @@ export const updateObject = (oldObject, updatedProperties) => {
   };
 };
 
+export const isAuthenticated = () => {
+  return localStorage.getItem('currentUser') !== null;
+}
+
 Storage.prototype.setObject = function(key, value) {
   this.setItem(key, JSON.stringify(value));
 }

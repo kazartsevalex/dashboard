@@ -5,8 +5,7 @@ import * as apiCallUrls from './apiCallUrls';
 import { delay, EMPLOYEES_PER_PAGE } from './utils';
 import { employees } from '../data/users';
 
-const getCurrentUser = async () => {
-  await delay(300);
+const getCurrentUser = () => {
   const user = localStorage.getItem('currentUser');
 
   return { data: user };
@@ -118,7 +117,7 @@ const getUserById = async (id) => {
 const apiCall = async (opts) => {
   switch (opts.url) {
     case apiCallUrls.CURRENT_USER:
-      return await getCurrentUser();
+      return getCurrentUser();
 
     case apiCallUrls.OAUTH_AUTHENTICATE:
       return await login(opts.data);
