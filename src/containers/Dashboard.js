@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Page from '../elements/Page';
@@ -24,7 +25,9 @@ const Dashboard = () => {
     paginatedEmployees.forEach(employee => {
       emps.push(
         <div key={employee.id}>
-          {employee.firstname} {employee.lastname}
+          <Link to={`/employee/${employee.id}`}>
+            {employee.firstname} {employee.lastname}
+          </Link>
         </div>
       );
     })

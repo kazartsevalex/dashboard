@@ -5,6 +5,7 @@ const initialState = {
   paginatedEmployees: [],
   employeesData: null,
   newEmployee: null,
+  employee: null,
   totalEmployees: 0,
   error: null,
   loading: false
@@ -48,6 +49,23 @@ const reducer = (state = initialState, action) => {
         error: null,
         newEmployee: action.newEmployee,
         totalEmployees: action.totalEmployees
+      });
+
+    case actionTypes.GET_EMPLOYEE_BY_ID_START:
+      return updateObject(state, { loading: true, error: null });
+
+    case actionTypes.GET_EMPLOYEE_BY_ID_FAIL:
+      return updateObject(state, {
+        loading: false,
+        error: action.error,
+        employee: null
+      });
+
+    case actionTypes.GET_EMPLOYEE_BY_ID_SUCCESS:
+      return updateObject(state, {
+        loading: false,
+        error: null,
+        employee: action.employee
       });
 
     default:

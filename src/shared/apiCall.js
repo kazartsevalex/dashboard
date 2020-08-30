@@ -91,6 +91,32 @@ const createUser = async (userData) => {
   };
 }
 
+const getUserById = async (id) => {
+  await delay(300);
+
+  const createdEmployees = localStorage.getObject('createdEmployees') || [];
+  let employee = createdEmployees.find(emp => emp.id === id);
+  if (!employee) {
+    employee = employees.find(emp => emp.id == id);
+  }
+  if (!employee) {
+    return {
+      error: "No employee with that id!"
+    };
+  }
+
+  const employeesData = localStorage.getObject('employeesData');
+  if (employeesData && employeesData[id]) {
+    employee = { ...employee, ...employeesData[id] };
+  }
+
+  return {
+    data: {
+      employee
+    }
+  };
+}
+
 const apiCall = async (opts) => {
   switch (opts.url) {
     case apiCallUrls.CURRENT_USER:
@@ -110,6 +136,9 @@ const apiCall = async (opts) => {
 
     case apiCallUrls.POST_USERS:
       return await createUser(opts.data);
+
+    case apiCallUrls.GET_USER_BY_ID:
+      return await getUserById(opts.data);
 
     default:
       return null;

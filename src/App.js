@@ -10,6 +10,7 @@ import Dashboard from './containers/Dashboard';
 import Login from './containers/Login';
 import Logout from './containers/Logout';
 import Register from './containers/Register';
+import EmployeePage from './containers/EmployeePage';
 import { fetchUser } from './store/actions/index';
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
       />
       <PrivateRoute exact path="/" component={Home} />
       <PrivateRoute exact path="/dashboard" component={Dashboard} />
+      <PrivateRoute exact path="/employee/:id" component={EmployeePage} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
       <Route exact path="/logout" component={Logout} />

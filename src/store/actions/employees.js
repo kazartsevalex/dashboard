@@ -76,3 +76,38 @@ export const createEmployee = (userData) => async dispatch => {
     dispatch(createEmployeeSuccess(response.data));
   }
 };
+
+export const getEmployeeByIdSuccess = ({ employee }) => {
+  return {
+    type: actionTypes.GET_EMPLOYEE_BY_ID_SUCCESS,
+    employee
+  };
+};
+
+export const getEmployeeByIdFail = (error) => {
+  return {
+    type: actionTypes.GET_EMPLOYEE_BY_ID_FAIL,
+    error: error
+  };
+};
+
+export const getEmployeeByIdStart = () => {
+  return {
+    type: actionTypes.GET_EMPLOYEE_BY_ID_START
+  };
+};
+
+export const getEmployeeById = (id) => async dispatch => {
+  dispatch(getEmployeeByIdStart());
+
+  const response = await apiCall({
+    url: apiCallUrls.GET_USER_BY_ID,
+    data: id
+  });
+
+  if (response.error) {
+    dispatch(getEmployeeByIdFail(response.error));
+  } else {
+    dispatch(getEmployeeByIdSuccess(response.data));
+  }
+};

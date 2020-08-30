@@ -5,3 +5,4 @@ export const LOGOUT = '/logout';
 
 export const GET_USERS = '/get_users';
 export const POST_USERS = '/post_users';
+export const GET_USER_BY_ID = '/get_user_by_id';
