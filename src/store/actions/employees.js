@@ -111,3 +111,38 @@ export const getEmployeeById = (id) => async dispatch => {
     dispatch(getEmployeeByIdSuccess(response.data));
   }
 };
+
+export const updateEmployeeByIdSuccess = ({ employeeData }) => {
+  return {
+    type: actionTypes.UPDATE_EMPLOYEE_BY_ID_SUCCESS,
+    employeeData
+  };
+};
+
+export const updateEmployeeByIdFail = (error) => {
+  return {
+    type: actionTypes.UPDATE_EMPLOYEE_BY_ID_FAIL,
+    error: error
+  };
+};
+
+export const updateEmployeeByIdStart = () => {
+  return {
+    type: actionTypes.UPDATE_EMPLOYEE_BY_ID_START
+  };
+};
+
+export const updateEmployeeById = (id, active) => async dispatch => {
+  dispatch(updateEmployeeByIdStart());
+
+  const response = await apiCall({
+    url: apiCallUrls.PUT_USER_INFO_BY_ID,
+    data: { id, active }
+  });
+
+  if (response.error) {
+    dispatch(updateEmployeeByIdFail(response.error));
+  } else {
+    dispatch(updateEmployeeByIdSuccess(response.data));
+  }
+};

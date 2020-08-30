@@ -6,6 +6,7 @@ const initialState = {
   employeesData: null,
   newEmployee: null,
   employee: null,
+  employeeData: null,
   totalEmployees: 0,
   error: null,
   loading: false
@@ -66,6 +67,23 @@ const reducer = (state = initialState, action) => {
         loading: false,
         error: null,
         employee: action.employee
+      });
+
+    case actionTypes.UPDATE_EMPLOYEE_BY_ID_START:
+      return updateObject(state, { loading: true, error: null });
+
+    case actionTypes.UPDATE_EMPLOYEE_BY_ID_FAIL:
+      return updateObject(state, {
+        loading: false,
+        error: action.error,
+        employeeData: null
+      });
+
+    case actionTypes.UPDATE_EMPLOYEE_BY_ID_SUCCESS:
+      return updateObject(state, {
+        loading: false,
+        error: null,
+        employeeData: action.employeeData
       });
 
     default:

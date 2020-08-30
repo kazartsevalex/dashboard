@@ -1,5 +1,4 @@
 // POST /users/:userId/time-tracks - Add new track entry for the user
-// PUT /users/:userId - Update user information
 // GET /time-tracks
 import * as apiCallUrls from './apiCallUrls';
 import { delay, EMPLOYEES_PER_PAGE } from './utils';
@@ -114,6 +113,21 @@ const getUserById = async (id) => {
   };
 }
 
+const updateUserById = async ({ id, active }) => {
+  await delay(300);
+
+  const employeesData = localStorage.getObject('employeesData') || {};
+  employeesData[id] = { ...employeesData[id], active: active };
+  localStorage.setObject('employeesData', employeesData);
+  const employeeData = employeesData[id];
+
+  return {
+    data: {
+      employeeData
+    }
+  };
+}
+
 const apiCall = async (opts) => {
   switch (opts.url) {
     case apiCallUrls.CURRENT_USER:
@@ -136,6 +150,9 @@ const apiCall = async (opts) => {
 
     case apiCallUrls.GET_USER_BY_ID:
       return await getUserById(opts.data);
+
+    case apiCallUrls.PUT_USER_INFO_BY_ID:
+      return await updateUserById(opts.data);
 
     default:
       return null;

@@ -3,7 +3,7 @@ import React from 'react';
 import EmployeesListItem from './EmployeesListItem';
 import TableRow from '../../elements/TableRow';
 
-const EmployeesList = ({ employees }) => {
+const EmployeesList = ({ employees, employeesData }) => {
   const emps = [
     <TableRow key={`table_head_${employees.length}`} type="head">
       <div><strong>Name</strong></div>
@@ -16,7 +16,8 @@ const EmployeesList = ({ employees }) => {
   ];
 
   employees.forEach(emp => {
-    emps.push(<EmployeesListItem key={emp.id} employee={emp} />);
+    const empData = employeesData ? employeesData[emp.id] : null;
+    emps.push(<EmployeesListItem key={emp.id} employee={emp} employeeData={empData} />);
   });
 
   return emps;

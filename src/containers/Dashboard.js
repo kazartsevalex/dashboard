@@ -28,15 +28,14 @@ const Dashboard = () => {
       <Main>
         <section>
           <H1>General summary</H1>
-          total employees: {totalEmployees}<br />
-          employeesData: {employeesData || '---'}
+          total employees: {totalEmployees}
           <CreateEmployee />
         </section>
         <section>
           <H1>Table filters</H1>
         </section>
         <section>
-          <EmployeesList employees={paginatedEmployees} />
+          <EmployeesList employees={paginatedEmployees} employeesData={employeesData} />
           <EmployeesPagination totalPages={totalPages} page={page} setCurrentPage={setCurrentPage} />
         </section>
       </Main>

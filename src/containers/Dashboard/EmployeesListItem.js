@@ -27,7 +27,11 @@ const SeeMoreLink = styled(Link)`
   }
 `;
 
-const EmployeesListItem = ({ employee }) => {
+const EmployeesListItem = ({ employee, employeeData }) => {
+  if (employeeData) {
+    employee = { ...employee, ...employeeData };
+  }
+
   return (
     <TableRow active={employee.active}>
       <div>{employee.firstname} {employee.lastname}</div>
