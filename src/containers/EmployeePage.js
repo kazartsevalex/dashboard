@@ -15,7 +15,7 @@ const EmployeePage = (props) => {
   useEffect(() => {
     console.log('getting employee by id')
     dispatch(getEmployeeById(id));
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   const title = employee ? `${employee.firstname} ${employee.lastname}` : 'Employee Page';
   const showError = error ? <FormError>{error}</FormError> : null;

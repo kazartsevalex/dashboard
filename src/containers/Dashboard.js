@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Page from '../elements/Page';
@@ -8,6 +7,7 @@ import Main from '../elements/Main';
 import H1 from '../elements/H1';
 import { getEmployees } from '../store/actions/index';
 import CreateEmployee from './Dashboard/CreateEmployee';
+import EmployeesList from './Dashboard/EmployeesList';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -18,22 +18,6 @@ const Dashboard = () => {
     console.log('getting employees')
     dispatch(getEmployees(page));
   }, [dispatch, page]);
-
-  const drawEmployees = () => {
-    const emps = [];
-
-    paginatedEmployees.forEach(employee => {
-      emps.push(
-        <div key={employee.id}>
-          <Link to={`/employee/${employee.id}`}>
-            {employee.firstname} {employee.lastname}
-          </Link>
-        </div>
-      );
-    })
-
-    return emps;
-  }
 
   return (
     <Page>
@@ -48,7 +32,7 @@ const Dashboard = () => {
           <H1>Table filters</H1>
         </section>
         <section>
-          {drawEmployees()}
+          <EmployeesList employees={paginatedEmployees} />
         </section>
       </Main>
     </Page>
