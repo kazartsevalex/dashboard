@@ -1,3 +1,6 @@
+export const EMPLOYEES_PER_PAGE = 24;
+export const MAX_PAGES = 5;
+
 export const delay = (ms) => {
   return new Promise(resolve => setTimeout(resolve, ms));
 };

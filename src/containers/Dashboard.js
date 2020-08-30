@@ -8,11 +8,15 @@ import H1 from '../elements/H1';
 import { getEmployees } from '../store/actions/index';
 import CreateEmployee from './Dashboard/CreateEmployee';
 import EmployeesList from './Dashboard/EmployeesList';
+import EmployeesPagination from './Dashboard/EmployeesPagination';
+import { EMPLOYEES_PER_PAGE } from '../shared/utils';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
   const { totalEmployees, paginatedEmployees, employeesData } = useSelector(state => state.employees);
   const [page, setPage] = useState(0);
+  const setCurrentPage = (newPage) => setPage(newPage);
+  const totalPages = Math.ceil(totalEmployees / EMPLOYEES_PER_PAGE);
 
   useEffect(() => {
     console.log('getting employees')
@@ -33,6 +37,7 @@ const Dashboard = () => {
         </section>
         <section>
           <EmployeesList employees={paginatedEmployees} />
+          <EmployeesPagination totalPages={totalPages} page={page} setCurrentPage={setCurrentPage} />
         </section>
       </Main>
     </Page>

@@ -2,10 +2,8 @@
 // PUT /users/:userId - Update user information
 // GET /time-tracks
 import * as apiCallUrls from './apiCallUrls';
-import { delay } from './utils';
+import { delay, EMPLOYEES_PER_PAGE } from './utils';
 import { employees } from '../data/users';
-
-const EMPLOYEES_PER_PAGE = 24;
 
 const getCurrentUser = async () => {
   await delay(300);
