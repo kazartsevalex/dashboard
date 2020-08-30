@@ -18,8 +18,8 @@ const CreateEmployeeForm = (props) => {
   };
 
   const textOptions = { required: true };
-  const firstnameErrorMessage = <FormError>Please enter your first name.</FormError>;
-  const lastnameErrorMessage = <FormError>Please enter your last name.</FormError>;
+  const firstnameErrorMessage = <FormError>Please enter first name.</FormError>;
+  const lastnameErrorMessage = <FormError>Please enter last name.</FormError>;
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -40,6 +40,14 @@ const CreateEmployeeForm = (props) => {
           ref={register(textOptions)}
         />
         {errors.lastname && lastnameErrorMessage}
+      </InputGroup>
+      <InputGroup>
+        <label>Active
+        <input
+          name="active"
+          type="checkbox"
+          ref={register()}
+        /></label>
       </InputGroup>
       <Button type="submit">Create Employee</Button>
     </Form>

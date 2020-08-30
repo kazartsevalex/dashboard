@@ -14,13 +14,10 @@ function CreateEmployee() {
   const dispatch = useDispatch();
   const submitCreateEmployee = (userData) => {
     dispatch(createEmployee(userData));
+    setFormVisible(false);
   };
 
-  const createEmployeeForm = formVisible ? (
-    <CreateEmployeeForm
-      onSubmit={submitCreateEmployee}
-    />
-  ) : null;
+  const createEmployeeForm = formVisible ? <CreateEmployeeForm onSubmit={submitCreateEmployee} /> : null;
 
   const buttonText = formVisible ? 'Hide Form' : 'Add New Employee';
 

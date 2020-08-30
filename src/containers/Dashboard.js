@@ -21,7 +21,7 @@ const Dashboard = () => {
   useEffect(() => {
     console.log('getting employees')
     dispatch(getEmployees(page));
-  }, [dispatch, page]);
+  }, [dispatch, page, totalEmployees]);
 
   return (
     <Page>

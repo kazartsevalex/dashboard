@@ -29,7 +29,7 @@ const SeeMoreLink = styled(Link)`
 
 const EmployeesListItem = ({ employee }) => {
   return (
-    <TableRow>
+    <TableRow active={employee.active}>
       <div>{employee.firstname} {employee.lastname}</div>
       <div>Total time</div>
       <div>Productive time</div>
