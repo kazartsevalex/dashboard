@@ -35,9 +35,11 @@ const EmployeesListItem = ({ employee }) => {
       <div>Productive time</div>
       <div>Unproductive time</div>
       <div>Ratio</div>
-      <SeeMoreLink to={`/employee/${employee.id}`}>
-        See more details
-      </SeeMoreLink>
+      <div>
+        <SeeMoreLink to={`/employee/${employee.id}`}>
+          See more details
+        </SeeMoreLink>
+      </div>
     </TableRow>
   );
 }
