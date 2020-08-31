@@ -50,12 +50,15 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(getEmployees(page, active));
-    setPaginatedEmployeesToShow([...paginatedEmployees]);
   }, [dispatch, page, totalEmployees, active]);
 
   useEffect(() => {
+    setPaginatedEmployeesToShow([...paginatedEmployees]);
+  }, [paginatedEmployees]);
+
+  useEffect(() => {
     dispatch(getTimetracks(active));
-  }, [dispatch, totalEmployees, active]);
+  }, [dispatch, active]);
 
   let total = 0, productive = 0, unproductive = 0;
   if (Object.keys(timetracks).length) {
@@ -96,7 +99,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     filterEmployees();
-  }, [nameFilter, dateRange]);
+  }, [nameFilter, dateRange, paginatedEmployees]);
 
   const [dateFilterVisible, setDateFilterVisible] = useState(false);
   const buttonDateFilterText = dateFilterVisible ? 'Hide Form' : 'Filter By Date';

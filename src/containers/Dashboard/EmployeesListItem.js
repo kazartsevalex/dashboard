@@ -45,10 +45,10 @@ const EmployeesListItem = ({ employee, employeeData, timetracksForEmployee }) =>
   return (
     <TableRow active={employee.active}>
       <div>{employee.firstname} {employee.lastname}</div>
-      <div>{total || 'Total time'}</div>
-      <div>{productive || 'Productive time'}</div>
-      <div>{unproductive || 'Unproductive time'}</div>
-      <div>{ratio || 'Ratio'}</div>
+      <div>{total || '---'}</div>
+      <div>{productive || '---'}</div>
+      <div>{unproductive || '---'}</div>
+      <div>{ratio || '---'}</div>
       <div>
         <SeeMoreLink to={`/employee/${employee.id}`}>
           See more details
