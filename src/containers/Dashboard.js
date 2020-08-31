@@ -28,7 +28,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     console.log('getting timetracks')
-    dispatch(getTimetracks());
+    dispatch(getTimetracks(active));
   }, [dispatch, totalEmployees]);
 
   let total = 0, productive = 0, unproductive = 0;

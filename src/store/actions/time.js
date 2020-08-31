@@ -92,11 +92,12 @@ export const getTimetracksStart = () => {
   };
 };
 
-export const getTimetracks = () => async dispatch => {
+export const getTimetracks = (active) => async dispatch => {
   dispatch(getTimetracksStart());
 
   const response = await apiCall({
-    url: apiCallUrls.GET_TIMETRACKS
+    url: apiCallUrls.GET_TIMETRACKS,
+    data: { active }
   });
 
   if (response.error) {

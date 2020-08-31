@@ -165,14 +165,28 @@ const getTimetracksById = async ({ id }) => {
   };
 }
 
-const getTimetracks = async () => {
+const getTimetracks = async ({ active }) => {
   await delay(300);
 
   const timetracks = localStorage.getObject('timetracks') || {};
+  const createdEmployees = localStorage.getObject('createdEmployees') || [];
+  const employeesData = localStorage.getObject('employeesData');
+  const output = {};
+  [...createdEmployees, ...employees].forEach(emp => {
+    if (emp.id in timetracks) {
+      if (emp.id in employeesData) {
+        if (employeesData[emp.id].active === active) {
+          output[emp.id] = timetracks[emp.id];
+        }
+      } else if (emp.active === active) {
+        output[emp.id] = timetracks[emp.id];
+      }
+    }
+  });
 
   return {
     data: {
-      timetracks
+      timetracks: output
     }
   };
 }
@@ -210,7 +224,7 @@ const apiCall = async (opts) => {
       return await getTimetracksById(opts.data);
 
     case apiCallUrls.GET_TIMETRACKS:
-      return await getTimetracks();
+      return await getTimetracks(opts.data);
 
     default:
       return null;
