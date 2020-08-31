@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import DateTimeRangePicker from '@wojtekmaj/react-datetimerange-picker'
+import DateTimeRangePicker from '@wojtekmaj/react-datetimerange-picker';
 
-import FormError from '../../elements/FormError';
 import InputGroup from '../../elements/InputGroup';
-// import Input from '../../elements/Input';
 import Button from '../../elements/Button';
 import Input from '../../elements/Input';
 
@@ -14,7 +12,7 @@ const Form = styled.form`
 `;
 
 const AddTimeForm = (props) => {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit } = useForm();
   const onSubmit = data => {
     props.onSubmit({ ...data, id: props.id });
   };

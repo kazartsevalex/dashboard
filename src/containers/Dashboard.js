@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import DateTimeRangePicker from '@wojtekmaj/react-datetimerange-picker';
 
 import Page from '../elements/Page';
 import Main from '../elements/Main';
@@ -16,20 +17,19 @@ import Button from '../elements/Button';
 const Filters = styled.div`
   display: flex;
   flex-flow: row wrap;
-  align-items: center;
   justify-content: space-between;
   margin: 15px 0;
   & > div {
     width: 30%;
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column wrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     &:first-child {
-      justify-content: flex-start;
+      align-items: flex-start;
     }
     &:last-child {
-      justify-content: flex-end;
+      align-items: flex-end;
     }
   }
 `;
@@ -68,19 +68,55 @@ const Dashboard = () => {
     }
   }
 
+  const [nameFilter, setNameFilter] = useState('');
+  const [dateRange, setDateRange] = useState([new Date(), new Date()]);
+
+  const filterEmployees = () => {
+    let newEmps = paginatedEmployees.filter(emp => {
+      return emp.firstname.toLowerCase().includes(nameFilter) || emp.lastname.toLowerCase().includes(nameFilter);
+    });
+    if (dateRange) {
+      if (dateRange[0] - dateRange[1] !== 0) {
+        newEmps = newEmps.filter(emp => {
+          let flag = false;
+          if (emp.id in timetracks) {
+            timetracks[emp.id].forEach(tt => {
+              if (dateRange[0] <= new Date(tt.datestart) && dateRange[1] >= new Date(tt.dateend)) {
+                flag = true;
+              }
+            });
+          }
+
+          return flag;
+        });
+      }
+    }
+    setPaginatedEmployeesToShow(newEmps);
+  }
+
+  useEffect(() => {
+    filterEmployees();
+  }, [nameFilter, dateRange]);
+
+  const [dateFilterVisible, setDateFilterVisible] = useState(false);
+  const buttonDateFilterText = dateFilterVisible ? 'Hide Form' : 'Filter By Date';
+  const toggleDateFilter = () => {
+    setDateFilterVisible(prev => !prev);
+  }
+  const onDateChange = (val) => {
+    if (val === null) {
+      val = [new Date(), new Date()];
+    }
+    setDateRange(val);
+    filterEmployees();
+  }
+
   const buttonType = active ? 'abort' : 'submit';
   const buttonText = active ? 'Show Deactivated Only' : 'Show Active Only';
-  const [nameFilter, setNameFilter] = useState('');
   const filterByName = (e) => {
     const name = e.target.value.trim();
     setNameFilter(name);
-    setPaginatedEmployeesToShow(
-      paginatedEmployees.filter(emp => {
-        if (emp.firstname.toLowerCase().includes(name) || emp.lastname.toLowerCase().includes(name)) {
-          return emp;
-        }
-      })
-    );
+    filterEmployees();
   }
 
   return (
@@ -100,6 +136,14 @@ const Dashboard = () => {
               <Input type="text" value={nameFilter} onChange={filterByName} />
             </div>
             <div>
+              <Button onClick={toggleDateFilter}>{buttonDateFilterText}</Button>
+              {dateFilterVisible ? (
+                <DateTimeRangePicker
+                  onChange={onDateChange}
+                  value={dateRange}
+                  required={true}
+                />
+              ) : null}
             </div>
             <div>
               <Button type={buttonType} onClick={changeActive}>{buttonText}</Button>
