@@ -41,7 +41,7 @@ const reducer = (state = initialState, action) => {
       return updateObject(state, {
         loading: false,
         error: null,
-        timetracks: action.timetracks
+        timetracksForEmployee: action.timetracksForEmployee
       });
 
     case actionTypes.GET_TIMETRACKS_START:
