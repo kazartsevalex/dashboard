@@ -29,12 +29,26 @@ const Dashboard = () => {
     dispatch(getTimetracks());
   }, [dispatch, totalEmployees]);
 
+  let total = 0, productive = 0, unproductive = 0;
+  if (Object.keys(timetracks).length) {
+    for (let id in timetracks) {
+      timetracks[id].forEach(tt => {
+        total += parseInt(tt.total, 10);
+        productive += parseInt(tt.productive, 10);
+        unproductive += parseInt(tt.unproductive, 10);
+      });
+    }
+  }
+
   return (
     <Page>
       <Main>
         <section>
           <H1>General summary</H1>
-          total employees: {totalEmployees}
+          total employees: {totalEmployees}<br />
+          total time: {total}<br />
+          total productive: {productive}<br />
+          total unproductive: {unproductive}
           <CreateEmployee />
         </section>
         <section>
