@@ -1,4 +1,3 @@
-// POST /users/:userId/time-tracks - Add new track entry for the user
 // GET /time-tracks
 import * as apiCallUrls from './apiCallUrls';
 import { delay, EMPLOYEES_PER_PAGE } from './utils';
@@ -128,6 +127,38 @@ const updateUserById = async ({ id, active }) => {
   };
 }
 
+const postTrackTime = async ({ id, ...rest }) => {
+  await delay(300);
+
+  const timetracks = localStorage.getObject('timetracks') || {};
+  if (!timetracks[id]) {
+    timetracks[id] = [{ ...rest }];
+  } else {
+    timetracks[id] = [ ...timetracks[id], { ...rest } ];
+  }
+  localStorage.setObject('timetracks', timetracks);
+  const timetracksForEmployee = timetracks[id];
+
+  return {
+    data: {
+      timetracksForEmployee
+    }
+  };
+}
+
+const getTimetracksById = async ({ id }) => {
+  await delay(300);
+
+  const timetracks = localStorage.getObject('timetracks') || {};
+  const timetracksForEmployee = timetracks[id] || [];
+
+  return {
+    data: {
+      timetracksForEmployee
+    }
+  };
+}
+
 const apiCall = async (opts) => {
   switch (opts.url) {
     case apiCallUrls.CURRENT_USER:
@@ -153,6 +184,12 @@ const apiCall = async (opts) => {
 
     case apiCallUrls.PUT_USER_INFO_BY_ID:
       return await updateUserById(opts.data);
+
+    case apiCallUrls.TRACK_TIME:
+      return await postTrackTime(opts.data);
+
+    case apiCallUrls.GET_TIMETRACKS_BY_ID:
+      return await getTimetracksById(opts.data);
 
     default:
       return null;
