@@ -55,6 +55,7 @@ const AuthForm = (props) => {
         <label>Password</label>
         <Input
           name="password"
+          type="password"
           ref={register(passwordOptions)}
         />
         {errors.password && passwordErrorMessage}
