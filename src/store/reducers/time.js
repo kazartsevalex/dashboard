@@ -3,6 +3,7 @@ import { updateObject } from '../../shared/utils';
 
 const initialState = {
   timetracksForEmployee: [],
+  timetracks: {},
   error: null,
   loading: false
 };
@@ -40,7 +41,24 @@ const reducer = (state = initialState, action) => {
       return updateObject(state, {
         loading: false,
         error: null,
-        timetracksForEmployee: action.timetracksForEmployee
+        timetracks: action.timetracks
+      });
+
+    case actionTypes.GET_TIMETRACKS_START:
+      return updateObject(state, { loading: true, error: null });
+
+    case actionTypes.GET_TIMETRACKS_FAIL:
+      return updateObject(state, {
+        loading: false,
+        error: action.error,
+        timetracks: {}
+      });
+
+    case actionTypes.GET_TIMETRACKS_SUCCESS:
+      return updateObject(state, {
+        loading: false,
+        error: null,
+        timetracks: action.timetracks
       });
 
     default:

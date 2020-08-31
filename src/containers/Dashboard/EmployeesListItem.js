@@ -27,18 +27,28 @@ const SeeMoreLink = styled(Link)`
   }
 `;
 
-const EmployeesListItem = ({ employee, employeeData }) => {
+const EmployeesListItem = ({ employee, employeeData, timetracksForEmployee }) => {
   if (employeeData) {
     employee = { ...employee, ...employeeData };
+  }
+
+  let total = 0, productive = 0, unproductive = 0, ratio = 0;
+  if (timetracksForEmployee.length) {
+    timetracksForEmployee.forEach(tt => {
+      total += parseInt(tt.total, 10);
+      productive += parseInt(tt.productive, 10);
+      unproductive += parseInt(tt.unproductive, 10);
+    });
+    ratio = (productive / unproductive).toFixed(2);
   }
 
   return (
     <TableRow active={employee.active}>
       <div>{employee.firstname} {employee.lastname}</div>
-      <div>Total time</div>
-      <div>Productive time</div>
-      <div>Unproductive time</div>
-      <div>Ratio</div>
+      <div>{total || 'Total time'}</div>
+      <div>{productive || 'Productive time'}</div>
+      <div>{unproductive || 'Unproductive time'}</div>
+      <div>{ratio || 'Ratio'}</div>
       <div>
         <SeeMoreLink to={`/employee/${employee.id}`}>
           See more details

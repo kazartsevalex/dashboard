@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Page from '../elements/Page';
@@ -58,10 +58,6 @@ const EmployeePage = (props) => {
 
   useEffect(() => {
     dispatch(getEmployeeById(id));
-  }, [dispatch, id]);
-
-  useEffect(() => {
-    console.log(123)
     dispatch(getTimetracksById(id));
   }, [dispatch, id]);
 

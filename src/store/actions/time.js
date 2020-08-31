@@ -58,7 +58,7 @@ export const getTimetracksByIdStart = () => {
 };
 
 export const getTimetracksById = (id) => async dispatch => {
-  dispatch(trackTimeStart());
+  dispatch(getTimetracksByIdStart());
 
   const response = await apiCall({
     url: apiCallUrls.GET_TIMETRACKS_BY_ID,
@@ -69,5 +69,39 @@ export const getTimetracksById = (id) => async dispatch => {
     dispatch(getTimetracksByIdFail(response.error));
   } else {
     dispatch(getTimetracksByIdSuccess(response.data));
+  }
+};
+
+export const getTimetracksSuccess = ({ timetracks }) => {
+  return {
+    type: actionTypes.GET_TIMETRACKS_SUCCESS,
+    timetracks
+  };
+};
+
+export const getTimetracksFail = (error) => {
+  return {
+    type: actionTypes.GET_TIMETRACKS_FAIL,
+    error: error
+  };
+};
+
+export const getTimetracksStart = () => {
+  return {
+    type: actionTypes.GET_TIMETRACKS_START
+  };
+};
+
+export const getTimetracks = () => async dispatch => {
+  dispatch(getTimetracksStart());
+
+  const response = await apiCall({
+    url: apiCallUrls.GET_TIMETRACKS
+  });
+
+  if (response.error) {
+    dispatch(getTimetracksFail(response.error));
+  } else {
+    dispatch(getTimetracksSuccess(response.data));
   }
 };

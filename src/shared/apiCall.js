@@ -1,4 +1,3 @@
-// GET /time-tracks
 import * as apiCallUrls from './apiCallUrls';
 import { delay, EMPLOYEES_PER_PAGE } from './utils';
 import { employees } from '../data/users';
@@ -159,6 +158,18 @@ const getTimetracksById = async ({ id }) => {
   };
 }
 
+const getTimetracks = async () => {
+  await delay(300);
+
+  const timetracks = localStorage.getObject('timetracks') || {};
+
+  return {
+    data: {
+      timetracks
+    }
+  };
+}
+
 const apiCall = async (opts) => {
   switch (opts.url) {
     case apiCallUrls.CURRENT_USER:
@@ -190,6 +201,9 @@ const apiCall = async (opts) => {
 
     case apiCallUrls.GET_TIMETRACKS_BY_ID:
       return await getTimetracksById(opts.data);
+
+    case apiCallUrls.GET_TIMETRACKS:
+      return await getTimetracks();
 
     default:
       return null;
