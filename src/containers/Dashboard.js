@@ -19,9 +19,11 @@ const Dashboard = () => {
   const setCurrentPage = (newPage) => setPage(newPage);
   const totalPages = Math.ceil(totalEmployees / EMPLOYEES_PER_PAGE);
 
+  const [active, setActive] = useState(true);
+
   useEffect(() => {
     console.log('getting employees')
-    dispatch(getEmployees(page));
+    dispatch(getEmployees(page, active));
   }, [dispatch, page, totalEmployees]);
 
   useEffect(() => {

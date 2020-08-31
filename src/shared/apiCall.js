@@ -48,18 +48,25 @@ const logout = async () => {
   return true;
 }
 
-const getUsers = async ({ page }) => {
+const getUsers = async ({ page, active }) => {
   await delay(300);
 
   const createdEmployees = localStorage.getObject('createdEmployees') || [];
-  const allEmployees = [...createdEmployees, ...employees];
+  const employeesData = localStorage.getObject('employeesData');
+  const allEmployees = [...createdEmployees, ...employees].filter(emp => {
+    if (emp.id in employeesData) {
+      return employeesData[emp.id].active === active;
+    }
+
+    return emp.active === active;
+  });
   const start = page * EMPLOYEES_PER_PAGE;
   const end = start + EMPLOYEES_PER_PAGE;
   const paginatedEmployees = allEmployees.slice(start, end);
 
   return {
     data: {
-      employeesData: localStorage.getObject('employeesData'),
+      employeesData,
       totalEmployees: allEmployees.length,
       paginatedEmployees
     }

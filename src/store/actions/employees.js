@@ -24,13 +24,14 @@ export const getEmployeesStart = () => {
   };
 };
 
-export const getEmployees = (page) => async dispatch => {
+export const getEmployees = (page, active) => async dispatch => {
   dispatch(getEmployeesStart());
 
   const response = await apiCall({
     url: apiCallUrls.GET_USERS,
     data: {
-      page
+      page,
+      active
     }
   });
 
